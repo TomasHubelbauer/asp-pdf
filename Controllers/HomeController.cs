@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using asp_pdf.Models;
@@ -107,7 +104,34 @@ namespace asp_pdf.Controllers
 
     public IActionResult Privacy()
     {
-      return View();
+      var cwd = Directory.GetCurrentDirectory();
+      var htmlFilePath = Path.Combine(cwd, "source.html");
+      var pdfFilePath = Path.Combine(cwd, "target.pdf");
+
+      var html = $@"
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test PDF</title>
+  </head>
+  <body>
+    <h1>Header</h1>
+    <p></p>
+  </body>
+</html>
+";
+
+      System.IO.File.WriteAllText(htmlFilePath, html);
+
+      var process = new Process();
+      var processStartInfo = new ProcessStartInfo();
+      processStartInfo.FileName = "chrome";
+      processStartInfo.Arguments = $"--headless --print-to-pdf={pdfFilePath} file://{htmlFilePath}";
+      process.StartInfo = processStartInfo;
+      process.Start();
+      process.WaitForExit();
+      var fileStream = System.IO.File.OpenRead(pdfFilePath);
+      return new FileStreamResult(fileStream, new MediaTypeHeaderValue("application/pdf"));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

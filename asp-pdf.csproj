@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GoogleChrome" Version="57.0.2987.98" />
     <PackageReference Include="PDFSharpCore" Version="1.1.18" />
   </ItemGroup>
 
