@@ -1,25 +1,29 @@
 # ASP .NET Core PDF
 
-[**WEB**](https://tomashubelbauer.github.io/asp-pdf)
-
 Generating a PDF in ASP .NET Core.
 
-`dotnet new mvc`
+## Options
+
+### Paid & Bad
 
 https://dotnetcoretutorials.com/2019/07/02/creating-a-pdf-in-net-core
 
-- PDF Sharp - .NET only, not .NET Core - has port https://github.com/ststeiger/PdfSharpCore
-- Select PDF - $500 & CE version: https://selectpdf.com/community-edition <5 pages
-- Iron PDF - Also paid
-- WkHtmlToPdf - Native dependency
-- SpirePDF - $600
-- EO PDF - $750
-- Aspose PDF - $1000
-- ITextSharp - AGPL
+- Select PDF: $500 & CE version: https://selectpdf.com/community-edition 5 pages
+- Iron PDF: paid
+- WkHtmlToPdf: native dependency
+- SpirePDF: $600
+- EO PDF: $750
+- Aspose PDF: $1000
+- ITextSharp: AGPL
+
+### Good
+
+- PDF Sharp: .NET only, .NET Core port https://github.com/ststeiger/PdfSharpCore
+- Chromium: CLI
 
 ## PDFSharpCore
 
-https://www.nuget.org/packages/PdfSharpCore/
+https://www.nuget.org/packages/PdfSharpCore
 
 ```cs
 public IActionResult Index()
@@ -44,18 +48,14 @@ public IActionResult Index()
 
 `dotnet watch run`
 
-See the `Index` Home controller action for a full example.
+See the `Index` Home controller action for a full example. Headers and footers
+seem to need to be done on per-page basis.
 
-## Chrome
+## Chromium
 
 https://www.nuget.org/packages/GoogleChrome
 
 `chrome --headless --print-to-pdf="render.pdf" file://`
 
-See the `Privacy` Home controller action for a full example.
-
-## To-Do
-
-### Figure out how to do repeating header and footer on every page in HTML
-
-Doesn't seem to be supported as of today?
+See the `Privacy` Home controller action for a full example. Headers and footers
+seem to need to be done on per-page basis using CSS.
